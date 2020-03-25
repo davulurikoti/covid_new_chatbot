@@ -218,7 +218,7 @@ app.post('/whatsapp', (req, res) => {
   	else{
   		axios.get('https://corona.lmao.ninja/countries/'+req.body.Body)
   	.then(response => {
-      if(undefined != response.data){
+      if(undefined != response.data.country){
         message = '🚩'+response.data.country+'\n ➖➖➖➖➖➖➖\n Cases:'+response.data.cases+'\n Today cases:'+response.data.todayCases+'\n Deaths:'+response.data.deaths+'\n Today deaths:'+response.data.todayDeaths+'\n Recovered: '+response.data.recovered+'\n Active:'+response.data.active+'\n Critical:'+response.data.critical+'\n Cases per million:'+response.data.casesPerOneMillion;
       }else{
         message = "🤷‍♂Invalid country name or the country has no corona cases reported. Report me in help section if something is wrong! Thank you."
