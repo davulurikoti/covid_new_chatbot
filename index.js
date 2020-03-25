@@ -125,7 +125,7 @@ app.post('/whatsapp', (req, res) => {
   				.then(response => {
     
     			message = '🚩'+response.data.country+'\n➖➖➖➖➖➖➖\n Cases:'+response.data.cases+'\n Today cases:'+response.data.todayCases+'\n Deaths:'+response.data.deaths+'\n Today deaths:'+response.data.todayDeaths+'\n Recovered: '+response.data.recovered+'\n Active:'+response.data.active+'\n Critical:'+response.data.critical+'\n Cases per million:'+response.data.casesPerOneMillion;
-    			message = message + + '\n'+ dashes + mainMenu;
+    			message = message + '\n'+ dashes + mainMenu;
     			twiml.message(message);
 
   				res.writeHead(200, {'Content-Type': 'text/xml'});
