@@ -63,7 +63,7 @@ app.post('/whatsapp', (req, res) => {
           axios.get('https://corona.lmao.ninja/countries/'+JSON.parse(body)[0].country)
           .then(response => {
           if(undefined != response.data){
-           message = message + '\n❄'+response.data.country+'\n➖➖➖➖➖➖➖\n Cases:'+response.data.cases+'\n Today cases:'+response.data.todayCases+'\n Deaths:'+response.data.deaths+'\n Today deaths:'+response.data.todayDeaths+'\n Recovered: '+response.data.recovered+'\n Active:'+response.data.active+'\n Critical:'+response.data.critical+'\n Cases per million:'+response.data.casesPerOneMillion; 
+           message = message + '\n🚩'+response.data.country+'\n➖➖➖➖➖➖➖\n Cases:'+response.data.cases+'\n Today cases:'+response.data.todayCases+'\n Deaths:'+response.data.deaths+'\n Today deaths:'+response.data.todayDeaths+'\n Recovered: '+response.data.recovered+'\n Active:'+response.data.active+'\n Critical:'+response.data.critical+'\n Cases per million:'+response.data.casesPerOneMillion; 
           }
           message = message + chooseOptions;   
           message = message + mainMenu;          
