@@ -14,6 +14,7 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const worldurl = "https://corona.lmao.ninja/all";
 const countryurl = "https://corona.lmao.ninja/countries";
 
+let dashes = "➖➖➖➖➖➖➖";
 let mainMenu = '\n*1*. World report \n*2*. My country report \n*3*. Country wise report \n*4*. Top 5 countries report \n*5*. About and Help';
 let errorMessage = '🤷‍Sorry!! I did\'n\'t understand';
 let chooseOptions = '\n\nPlease choose from the following options.\n';
@@ -93,7 +94,7 @@ app.post('/whatsapp', (req, res) => {
     	body += data;
     	message = '🌎🌍🌏 _World report._\n';
     	message = message+ 'Total Cases:'+JSON.parse(body).cases+'\nDeaths:'+JSON.parse(body).deaths+'\nRecovered:'+JSON.parse(body).recovered;
-    	message = message + toMainMenu;
+    	message = message + '\n'+ dashes + mainMenu;
   		twiml.message(message);
 
   		res.writeHead(200, {'Content-Type': 'text/xml'});
@@ -124,7 +125,7 @@ app.post('/whatsapp', (req, res) => {
   				.then(response => {
     
     			message = '🚩'+response.data.country+'\n➖➖➖➖➖➖➖\n Cases:'+response.data.cases+'\n Today cases:'+response.data.todayCases+'\n Deaths:'+response.data.deaths+'\n Today deaths:'+response.data.todayDeaths+'\n Recovered: '+response.data.recovered+'\n Active:'+response.data.active+'\n Critical:'+response.data.critical+'\n Cases per million:'+response.data.casesPerOneMillion;
-    			message = message + toMainMenu;
+    			message = message + + '\n'+ dashes + mainMenu;
     			twiml.message(message);
 
   				res.writeHead(200, {'Content-Type': 'text/xml'});
