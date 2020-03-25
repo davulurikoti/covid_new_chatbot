@@ -15,7 +15,7 @@ const worldurl = "https://corona.lmao.ninja/all";
 const countryurl = "https://corona.lmao.ninja/countries";
 
 let mainMenu = '1. World report \n2. My country report \n3. Country wise report \n4. Top 5 countries report \n5. About and Help';
-let errorMessage = 'Sorry!! I did\'n\'t understand';
+let errorMessage = '🤷‍Sorry!! I did\'n\'t understand';
 
 var app = express();
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -33,7 +33,7 @@ app.post('/whatsapp', (req, res) => {
   	let body = "";
   	rs.on("data", data => {
     body += data;
-    message = 'Hello there! Currently the world has '+JSON.parse(body).cases+' COVID cases reported.\n';
+    message = '🙏Hello there! Currently the world has '+JSON.parse(body).cases+' COVID cases reported.😷';
 	  message = message + "\nPlease choose from the following options.\n"   
     message = message + mainMenu;
   	twiml.message(message);
@@ -55,7 +55,7 @@ app.post('/whatsapp', (req, res) => {
     	message = 'Here is the World report.\n';
     	
     	message = message+ 'Total Cases:'+JSON.parse(body).cases+'\nDeaths:'+JSON.parse(body).deaths+'\nRecovered:'+JSON.parse(body).recovered+'\n';
-    	message = message +'\n-----------\n 0 to go to main menu';
+    	message = message +'\n➖➖➖➖➖➖➖\n 0 to go to main menu';
   		twiml.message(message);
 
   		res.writeHead(200, {'Content-Type': 'text/xml'});
@@ -85,8 +85,8 @@ app.post('/whatsapp', (req, res) => {
   				axios.get('https://corona.lmao.ninja/countries/'+JSON.parse(body)[0].country)
   				.then(response => {
     
-    			message = response.data.country+'\n -------------------\n Cases:'+response.data.cases+'\n Today cases:'+response.data.todayCases+'\n Deaths:'+response.data.deaths+'\n Today deaths:'+response.data.todayDeaths+'\n Recovered: '+response.data.recovered+'\n Active:'+response.data.active+'\n Critical:'+response.data.critical+'\n Cases per million:'+response.data.casesPerOneMillion;
-    			message = message +'\n-----------\n 0 to go to main menu';
+    			message = response.data.country+'\n➖➖➖➖➖➖➖\n Cases:'+response.data.cases+'\n Today cases:'+response.data.todayCases+'\n Deaths:'+response.data.deaths+'\n Today deaths:'+response.data.todayDeaths+'\n Recovered: '+response.data.recovered+'\n Active:'+response.data.active+'\n Critical:'+response.data.critical+'\n Cases per million:'+response.data.casesPerOneMillion;
+    			message = message +'\n➖➖➖➖➖➖➖\n 0 to go to main menu';
     			twiml.message(message);
 
   				res.writeHead(200, {'Content-Type': 'text/xml'});
@@ -102,7 +102,7 @@ app.post('/whatsapp', (req, res) => {
  	}
  	else if(req.body.Body == 3){
  		req.session.current = 10;
- 		message = 'Please enter the country name';
+ 		message = '📱Please enter the country name';
  		twiml.message(message);
 
   		res.writeHead(200, {'Content-Type': 'text/xml'});
@@ -114,10 +114,10 @@ app.post('/whatsapp', (req, res) => {
   			.then(response => {
     
     		for (var i = 0; i < 5; i++) {
-    			let curr = '**'+response.data[i].country+'\nCases:'+response.data[i].cases+'\nToday cases:'+response.data[i].todayCases+'\nDeaths:'+response.data[i].deaths+'\nToday deaths:'+response.data[i].todayDeaths+'\n';
+    			let curr = '❄'+response.data[i].country+'\nCases:'+response.data[i].cases+'\nToday cases:'+response.data[i].todayCases+'\nDeaths:'+response.data[i].deaths+'\nToday deaths:'+response.data[i].todayDeaths+'\n';
     			message = message + curr;
     		}
-    		message = message+'\n-----------\n 0 to go to main menu'
+    		message = message+'\n➖➖➖➖➖➖➖\n 0 to go to main menu'
     		twiml.message(message);
 
   		res.writeHead(200, {'Content-Type': 'text/xml'});
@@ -133,18 +133,18 @@ app.post('/whatsapp', (req, res) => {
   	let body = "";
   	rs.on("data", data => {
     body += data;
-    message = 'Hello there! Currently the world has '+JSON.parse(body).cases+' COVID cases reported.\n';
+    message = '🙏Hello there! Currently the world has '+JSON.parse(body).cases+' COVID cases reported😷.\n';
     message = message + mainMenu;
   	twiml.message(message);
 
   	res.writeHead(200, {'Content-Type': 'text/xml'});
- 	res.end(twiml.toString());
+ 	  res.end(twiml.toString());
       });});
   	}
  		
  	else if(req.body.Body == 5){
  		req.session.current = 1;
- 		twiml.message("This Bot is made to track the current corona cases.\n You can ping me 'https://wa.me/918220432496' for any queries.\n Select from main menu again. \n"+mainMenu);
+ 		twiml.message("This 🤖Bot is made to track the current corona cases.\n You can ping me 'https://wa.me/918220432496' for any queries.\n Select from main menu again. \n"+mainMenu);
 
   		res.writeHead(200, {'Content-Type': 'text/xml'});
  		res.end(twiml.toString());
@@ -166,7 +166,7 @@ app.post('/whatsapp', (req, res) => {
   	let body = "";
   	rs.on("data", data => {
     body += data;
-    message = 'Hello there! Currently the world has '+JSON.parse(body).cases+' COVID cases reported.\n';
+    message = '🙏Hello there! Currently the world has '+JSON.parse(body).cases+' COVID cases reported😷.\n';
     message = message + mainMenu;
   	twiml.message(message);
 
@@ -180,8 +180,8 @@ app.post('/whatsapp', (req, res) => {
   		axios.get('https://corona.lmao.ninja/countries/'+req.body.Body)
   	.then(response => {
     
-    	message = response.data.country+'\n -------------------\n Cases:'+response.data.cases+'\n Today cases:'+response.data.todayCases+'\n Deaths:'+response.data.deaths+'\n Today deaths:'+response.data.todayDeaths+'\n Recovered: '+response.data.recovered+'\n Active:'+response.data.active+'\n Critical:'+response.data.critical+'\n Cases per million:'+response.data.casesPerOneMillion;
-    	message = message+'\n-----------\n You can enter another country \n-----------\n 0 to go to main menu'
+    	message = response.data.country+'\n ➖➖➖➖➖➖➖\n Cases:'+response.data.cases+'\n Today cases:'+response.data.todayCases+'\n Deaths:'+response.data.deaths+'\n Today deaths:'+response.data.todayDeaths+'\n Recovered: '+response.data.recovered+'\n Active:'+response.data.active+'\n Critical:'+response.data.critical+'\n Cases per million:'+response.data.casesPerOneMillion;
+    	message = message+'\n➖➖➖➖➖➖➖\n You can enter another country \n➖➖➖➖➖➖➖\n 0 to go to main menu'
     	twiml.message(message);
 
   		res.writeHead(200, {'Content-Type': 'text/xml'});
@@ -189,7 +189,7 @@ app.post('/whatsapp', (req, res) => {
    
   })
   .catch(error => {
-  	twiml.message("Invalid country name");
+  	twiml.message("🤷‍♂Invalid country name");
 
   		res.writeHead(200, {'Content-Type': 'text/xml'});
  		res.end(twiml.toString());
