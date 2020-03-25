@@ -14,7 +14,7 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const worldurl = "https://corona.lmao.ninja/all";
 const countryurl = "https://corona.lmao.ninja/countries";
 
-let mainMenu = '1. World report \n2. My country report \n3. Country wise report \n4. Top 5 countries report \n5. About and Help';
+let mainMenu = '\n1. World report \n2. My country report \n3. Country wise report \n4. Top 5 countries report \n5. About and Help';
 let errorMessage = '🤷‍Sorry!! I did\'n\'t understand';
 let chooseOptions = '\nPlease choose from the following options.\n';
 let helloMsg = '🙏Hello there! Currently the world has ';
@@ -40,8 +40,7 @@ app.post('/whatsapp', (req, res) => {
   	rs.on("data", data => {
     body += data;
     message = helloMsg +JSON.parse(body).cases+ covidCasesMsg;
-	  message = message + chooseOptions;   
-    message = message + mainMenu;
+	  
     //Start Code to get the my country data.
     var id = req.body.From.split("+")[1];
     var options = { method: 'GET',
@@ -54,6 +53,8 @@ app.post('/whatsapp', (req, res) => {
         if (error) throw new Error(error);
 
         if(JSON.parse(body).length == 0){
+          message = message + chooseOptions;   
+          message = message + mainMenu;
           twiml.message(message);
           res.writeHead(200, {'Content-Type': 'text/xml'});
           res.end(twiml.toString());
@@ -62,9 +63,10 @@ app.post('/whatsapp', (req, res) => {
           axios.get('https://corona.lmao.ninja/countries/'+JSON.parse(body)[0].country)
           .then(response => {
           if(undefined != response.data){
-           message = message + response.data.country+'\n➖➖➖➖➖➖➖\n Cases:'+response.data.cases+'\n Today cases:'+response.data.todayCases+'\n Deaths:'+response.data.deaths+'\n Today deaths:'+response.data.todayDeaths+'\n Recovered: '+response.data.recovered+'\n Active:'+response.data.active+'\n Critical:'+response.data.critical+'\n Cases per million:'+response.data.casesPerOneMillion; 
+           message = message + '\n❄'+response.data.country+'\n➖➖➖➖➖➖➖\n Cases:'+response.data.cases+'\n Today cases:'+response.data.todayCases+'\n Deaths:'+response.data.deaths+'\n Today deaths:'+response.data.todayDeaths+'\n Recovered: '+response.data.recovered+'\n Active:'+response.data.active+'\n Critical:'+response.data.critical+'\n Cases per million:'+response.data.casesPerOneMillion; 
           }
-                    
+          message = message + chooseOptions;   
+          message = message + mainMenu;          
           twiml.message(message);
           res.writeHead(200, {'Content-Type': 'text/xml'});
           res.end(twiml.toString());
@@ -251,7 +253,7 @@ app.post('/whatsapp', (req, res) => {
   		axios.get('https://corona.lmao.ninja/countries/'+ req.body.Body )
           .then(response => {
     
-          message = response.data.country+'\n➖➖➖➖➖➖➖\n Cases:'+response.data.cases+'\n Today cases:'+response.data.todayCases+'\n Deaths:'+response.data.deaths+'\n Today deaths:'+response.data.todayDeaths+'\n Recovered: '+response.data.recovered+'\n Active:'+response.data.active+'\n Critical:'+response.data.critical+'\n Cases per million:'+response.data.casesPerOneMillion;
+          message = 'Your Country is set.\n'+response.data.country+'\n➖➖➖➖➖➖➖\n Cases:'+response.data.cases+'\n Today cases:'+response.data.todayCases+'\n Deaths:'+response.data.deaths+'\n Today deaths:'+response.data.todayDeaths+'\n Recovered: '+response.data.recovered+'\n Active:'+response.data.active+'\n Critical:'+response.data.critical+'\n Cases per million:'+response.data.casesPerOneMillion;
           message = message + toMainMenu;
           twiml.message(message);
 
