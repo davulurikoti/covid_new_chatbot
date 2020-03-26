@@ -232,7 +232,7 @@ app.post('/whatsapp', (req, res) => {
     req.session.current = 1;
   	}
   	else{
-  		axios.get('https://coronavirus-19-api.herokuapp.com/'+req.body.Body)
+  		axios.get('https://coronavirus-19-api.herokuapp.com/countries/'+req.body.Body)
   	.then(response => {
       if(undefined != response.data.country){
         message = '🚩'+response.data.country+'\n ➖➖➖➖➖➖➖\n Cases:'+response.data.cases+'\n Today cases:'+response.data.todayCases+'\n Deaths:'+response.data.deaths+'\n Today deaths:'+response.data.todayDeaths+'\n Recovered: '+response.data.recovered+'\n Active:'+response.data.active+'\n Critical:'+response.data.critical+'\n Cases per million:'+response.data.casesPerOneMillion;
