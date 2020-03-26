@@ -11,8 +11,8 @@ const client = require('twilio')(process.env.SID, process.env.AUTH);
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
 
-const worldurl = "https://corona.lmao.ninja/all";
-const countryurl = "https://corona.lmao.ninja/countries";
+const worldurl = "https://coronavirus-19-api.herokuapp.com/all";
+const countryurl = "https://coronavirus-19-api.herokuapp.com/countries";
 
 let dashes = "➖➖➖➖➖➖➖";
 let mainMenu = '\n*1*. World report \n*2*. My country report \n*3*. Country wise report \n*4*. Top 5 countries report \n*5*. About and Help\n*6*. Suggestions\n*7*. Content of the day';
@@ -63,7 +63,7 @@ app.post('/whatsapp', (req, res) => {
           res.end(twiml.toString());
         }
         else{
-          axios.get('https://corona.lmao.ninja/countries/'+JSON.parse(body)[0].country)
+          axios.get('https://coronavirus-19-api.herokuapp.com/countries/'+JSON.parse(body)[0].country)
           .then(response => {
           if(undefined != response.data){
            message = message + '\n🚩'+response.data.country+'\n➖➖➖➖➖➖➖\n Cases:'+response.data.cases+'\n Today cases:'+response.data.todayCases+'\n Deaths:'+response.data.deaths+'\n Today deaths:'+response.data.todayDeaths+'\n Recovered: '+response.data.recovered+'\n Active:'+response.data.active+'\n Critical:'+response.data.critical+'\n Cases per million:'+response.data.casesPerOneMillion; 
@@ -123,7 +123,7 @@ app.post('/whatsapp', (req, res) => {
  				res.end(twiml.toString());
   			}
   			else{
-  				axios.get('https://corona.lmao.ninja/countries/'+JSON.parse(body)[0].country)
+  				axios.get('https://coronavirus-19-api.herokuapp.com/countries/'+JSON.parse(body)[0].country)
   				.then(response => {
     
     			message = '🚩'+response.data.country+'\n➖➖➖➖➖➖➖\n Cases:'+response.data.cases+'\n Today cases:'+response.data.todayCases+'\n Deaths:'+response.data.deaths+'\n Today deaths:'+response.data.todayDeaths+'\n Recovered: '+response.data.recovered+'\n Active:'+response.data.active+'\n Critical:'+response.data.critical+'\n Cases per million:'+response.data.casesPerOneMillion;
@@ -232,7 +232,7 @@ app.post('/whatsapp', (req, res) => {
     req.session.current = 1;
   	}
   	else{
-  		axios.get('https://corona.lmao.ninja/countries/'+req.body.Body)
+  		axios.get('https://coronavirus-19-api.herokuapp.com/'+req.body.Body)
   	.then(response => {
       if(undefined != response.data.country){
         message = '🚩'+response.data.country+'\n ➖➖➖➖➖➖➖\n Cases:'+response.data.cases+'\n Today cases:'+response.data.todayCases+'\n Deaths:'+response.data.deaths+'\n Today deaths:'+response.data.todayDeaths+'\n Recovered: '+response.data.recovered+'\n Active:'+response.data.active+'\n Critical:'+response.data.critical+'\n Cases per million:'+response.data.casesPerOneMillion;
@@ -271,7 +271,7 @@ app.post('/whatsapp', (req, res) => {
 	request(options2, function (error, response, body) {
   	if (error) throw new Error(error);
 
-  		axios.get('https://corona.lmao.ninja/countries/'+ req.body.Body )
+  		axios.get('https://coronavirus-19-api.herokuapp.com/countries/'+ req.body.Body )
           .then(response => {
     
           message = '✅Your Country is set. Please go to help in main menu and ping me, if something is wrong.\n🚩'+response.data.country+'\n➖➖➖➖➖➖➖\n Cases:'+response.data.cases+'\n Today cases:'+response.data.todayCases+'\n Deaths:'+response.data.deaths+'\n Today deaths:'+response.data.todayDeaths+'\n Recovered: '+response.data.recovered+'\n Active:'+response.data.active+'\n Critical:'+response.data.critical+'\n Cases per million:'+response.data.casesPerOneMillion;
