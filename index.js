@@ -15,13 +15,14 @@ const worldurl = "https://corona.lmao.ninja/all";
 const countryurl = "https://corona.lmao.ninja/countries";
 
 let dashes = "➖➖➖➖➖➖➖";
-let mainMenu = '\n*1*. World report \n*2*. My country report \n*3*. Country wise report \n*4*. Top 5 countries report \n*5*. About and Help';
+let mainMenu = '\n*1*. World report \n*2*. My country report \n*3*. Country wise report \n*4*. Top 5 countries report \n*5*. About and Help\n*6*. Suggestions\n*7*. Video of the day';
 let errorMessage = '🤷‍Sorry!! I did\'n\'t understand';
 let chooseOptions = '\n\nPlease choose from the following options.\n';
 let helloMsg = '🙏Hello there! Currently the world has ';
 let covidCasesMsg = ' COVID-19 cases reported.😷';
 let toMainMenu = '\n➖➖➖➖➖➖➖\n *0* to go to main menu';
 let botMsg = "This 🤖Bot is made to track the current corona cases.\nYou can ping me 'https://wa.me/918220432496' for any queries.\nCopy and share this(https://api.whatsapp.com/send?phone=14155238886&text=join%20event-rubber) link with your friends if they want to join this channel.\n\nSelect from main menu again. \n";
+let feedback = "🤳🏻Please leave your Suggestions and Feedback here.\nPlease restrict your content to single message.";
 
 var app = express();
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -188,6 +189,20 @@ app.post('/whatsapp', (req, res) => {
   		res.writeHead(200, {'Content-Type': 'text/xml'});
  		res.end(twiml.toString());
  	}
+  else if(req.body.Body == 6){
+    req.session.current = 12;
+    twiml.message(feedback);
+
+      res.writeHead(200, {'Content-Type': 'text/xml'});
+    res.end(twiml.toString());
+  }
+  else if(req.body.Body == 7){
+    req.session.current = 1;
+    twiml.message("COVID-19 | Corona Virus: Epidemiology, Pathophysiology, Diagnostics: https://www.youtube.com/watch?v=PWzbArPgo-o&feature=youtu.be \n" + mainMenu);
+
+    res.writeHead(200, {'Content-Type': 'text/xml'});
+    res.end(twiml.toString());
+  }
  	else{
  		req.session.current = 1;
  		message = errorMessage+'\n'+mainMenu;
@@ -271,6 +286,23 @@ app.post('/whatsapp', (req, res) => {
 
       
 });
+ }
+ else if(currentmsg == 11){
+  req.session.current = 1;
+  client.messages
+      .create({
+         from: 'whatsapp:+14155238886',
+         body: 'Hi Koti, You got a feedback from '+req.body.From+':'+req.body.Body,
+         to: 'whatsapp:+918220432496'
+       })
+      .then(message => console.log(message.sid));
+   message = '✅Thanks for your feedback.\n';
+   message = message + mainMenu;
+   twiml.message(message);
+
+   res.writeHead(200, {'Content-Type': 'text/xml'});
+   res.end(twiml.toString()); 
+
  }
 
  
