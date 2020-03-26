@@ -23,7 +23,7 @@ let covidCasesMsg = ' COVID-19 cases reported.😷';
 let toMainMenu = '\n➖➖➖➖➖➖➖\n *0* to go to main menu';
 let botMsg = "This 🤖Bot is made to track the current corona cases.\nYou can ping me 'https://wa.me/918220432496' for any queries.\nCopy and share this(https://api.whatsapp.com/send?phone=14155238886&text=join%20event-rubber) link with your friends if they want to join this channel.\n\nSelect from main menu again. \n";
 let feedback = "🤳🏻Please leave your Suggestions and Feedback here.\nPlease restrict your content to single message.";
-let issues = 'We have issues in fetching data. Please try after sometime.'
+let issues = 'We have issues in fetching data.'
 
 var app = express();
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -76,9 +76,6 @@ app.post('/whatsapp', (req, res) => {
         })
         .catch(error => {
         console.log(error);
-        twiml.message(issues);
-          res.writeHead(200, {'Content-Type': 'text/xml'});
-          res.end(twiml.toString());
         });
         }   
     
@@ -86,11 +83,7 @@ app.post('/whatsapp', (req, res) => {
   	//End Code to get the my country data.
     
     });
-  }).on('error', (e) => {
-  twiml.message(issues);
-          res.writeHead(200, {'Content-Type': 'text/xml'});
-          res.end(twiml.toString());
-  });;
+  });
   }
   else if(currentmsg == 1){
   	
@@ -108,10 +101,7 @@ app.post('/whatsapp', (req, res) => {
 
   		res.writeHead(200, {'Content-Type': 'text/xml'});
  		res.end(twiml.toString());
-      });}).on('error', (e) => {
-  twiml.message(issues);
-          res.writeHead(200, {'Content-Type': 'text/xml'});
-          res.end(twiml.toString());;
+      });});
  	}
  	else if(req.body.Body == 2){
  		req.session.current = 1;
@@ -144,9 +134,7 @@ app.post('/whatsapp', (req, res) => {
  				res.end(twiml.toString());
   			})
   			.catch(error => {
-   		 	twiml.message(issues);
-          res.writeHead(200, {'Content-Type': 'text/xml'});
-          res.end(twiml.toString());
+   		 	console.log(error);
   			});
   			}		
   	
@@ -178,9 +166,6 @@ app.post('/whatsapp', (req, res) => {
   		})
   		.catch(error => {
     	console.log(error);
-      twiml.message(issues);
-          res.writeHead(200, {'Content-Type': 'text/xml'});
-          res.end(twiml.toString());
   		});
  	}
   	else if(req.body.Body == 0){
@@ -242,11 +227,7 @@ app.post('/whatsapp', (req, res) => {
 
   	res.writeHead(200, {'Content-Type': 'text/xml'});
  	res.end(twiml.toString());
-      });}).on('error', (e) => {
-  twiml.message(issues);
-          res.writeHead(200, {'Content-Type': 'text/xml'});
-          res.end(twiml.toString());
-  });;
+      });});
   
     req.session.current = 1;
   	}
@@ -302,9 +283,6 @@ app.post('/whatsapp', (req, res) => {
         })
         .catch(error => {
         console.log(error);
-        twiml.message(issues);
-          res.writeHead(200, {'Content-Type': 'text/xml'});
-          res.end(twiml.toString());
         });
 
       
