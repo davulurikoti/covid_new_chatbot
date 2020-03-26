@@ -287,7 +287,7 @@ app.post('/whatsapp', (req, res) => {
       
 });
  }
- else if(currentmsg == 11){
+ else if(currentmsg == 12){
   req.session.current = 1;
   client.messages
       .create({
