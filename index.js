@@ -15,7 +15,7 @@ const worldurl = "https://corona.lmao.ninja/all";
 const countryurl = "https://corona.lmao.ninja/countries";
 
 let dashes = "➖➖➖➖➖➖➖";
-let mainMenu = '\n*1*. World report \n*2*. My country report \n*3*. Country wise report \n*4*. Top 5 countries report \n*5*. About and Help\n*6*. Suggestions\n*7*. Video of the day';
+let mainMenu = '\n*1*. World report \n*2*. My country report \n*3*. Country wise report \n*4*. Top 5 countries report \n*5*. About and Help\n*6*. Suggestions\n*7*. Content of the day';
 let errorMessage = '🤷‍Sorry!! I did\'n\'t understand';
 let chooseOptions = '\n\nPlease choose from the following options.\n';
 let helloMsg = '🙏Hello there! Currently the world has ';
@@ -191,7 +191,7 @@ app.post('/whatsapp', (req, res) => {
  	}
   else if(req.body.Body == 6){
     req.session.current = 12;
-    twiml.message(feedback);
+    twiml.message(feedback+toMainMenu);
 
       res.writeHead(200, {'Content-Type': 'text/xml'});
     res.end(twiml.toString());
@@ -289,7 +289,8 @@ app.post('/whatsapp', (req, res) => {
  }
  else if(currentmsg == 12){
   req.session.current = 1;
-  client.messages
+  if(0 != req.body.Body){
+    client.messages
       .create({
          from: 'whatsapp:+14155238886',
          body: 'Hi Koti, You got a feedback from '+req.body.From+':'+req.body.Body,
@@ -297,6 +298,8 @@ app.post('/whatsapp', (req, res) => {
        })
       .then(message => console.log(message.sid));
    message = '✅Thanks for your feedback.\n';
+  }
+  
    message = message + mainMenu;
    twiml.message(message);
 
