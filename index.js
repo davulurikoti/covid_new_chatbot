@@ -15,7 +15,7 @@ const worldurl = "https://coronavirus-19-api.herokuapp.com/all";
 const countryurl = "https://coronavirus-19-api.herokuapp.com/countries";
 
 let dashes = "➖➖➖➖➖➖➖";
-let mainMenu = '\n*1*. World report \n*2*. My country report \n*3*. Country wise report \n*4*. Top 5 countries report \n*5*. About and Help\n*6*. *India State wise report*\n*7*. Content of the day';
+let mainMenu = '\n*1*. World report \n*2*. My country report \n*3*. Country wise report \n*4*. Top 5 countries report \n*5*. About and Help\n*6*. Content of the day';
 let errorMessage = '🤷‍Sorry!! I did\'n\'t understand';
 let chooseOptions = '\n\nPlease choose from the following options.\n';
 let helloMsg = '🙏Hello there! Currently the world has ';
@@ -190,7 +190,7 @@ app.post('/whatsapp', (req, res) => {
   		res.writeHead(200, {'Content-Type': 'text/xml'});
  		res.end(twiml.toString());
  	}
-  else if(req.body.Body == 6){
+  /*else if(req.body.Body == 6){
     req.session.current = 1;
     axios.get('https://cdn.jsdelivr.net/gh/covid-19-tracker/india-state-wise@latest/data.json')
   .then(response => {
@@ -207,10 +207,10 @@ app.post('/whatsapp', (req, res) => {
 
   });
     
-  }
-  else if(req.body.Body == 7){
+  }*/
+  else if(req.body.Body == 6){
     req.session.current = 1;
-    twiml.message("https://www.youtube.com/watch?v=BtN-goy9VOY \n" + mainMenu);
+    twiml.message("https://www.youtube.com/watch?v=54XLXg4fYsc \n" + mainMenu);
 
     res.writeHead(200, {'Content-Type': 'text/xml'});
     res.end(twiml.toString());
