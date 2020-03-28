@@ -23,7 +23,7 @@ let covidCasesMsg = ' COVID-19 cases reported.😷';
 let toMainMenu = '\n➖➖➖➖➖➖➖\n *0* to go to main menu';
 let botMsg = "This 🤖Bot is made to track the current corona cases.\nYou can ping me 'https://wa.me/918220432496' for any queries.\nCopy and share this(https://api.whatsapp.com/send?phone=14155238886&text=join%20event-rubber) link with your friends if they want to join this channel.\n\nSelect from main menu again. \n";
 let feedback = "🤳🏻Please leave your Suggestions and Feedback here.\nPlease restrict your content to single message.";
-let issues = 'We have issues in fetching data.'
+let issues = 'We have issues in fetching data.';
 
 var app = express();
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -321,6 +321,16 @@ app.post('/whatsapp', (req, res) => {
  }
 
  
+});
+
+app.post('/expire', (req, res) => {
+  const twiml = new MessagingResponse();
+  let message = 'To adopt latest updates, send *join setting-go*.\nAlternatively, you can click here(https://api.whatsapp.com/send?phone=14155238886&text=join%20setting-go). \nYou can ping me at whatsapp: +918220432496(https://wa.me/918220432496) for any queries.';
+  twiml.message(message);
+
+    res.writeHead(200, {'Content-Type': 'text/xml'});
+  res.end(twiml.toString());
+  
 });
 
 
