@@ -15,7 +15,7 @@ const worldurl = "https://coronavirus-19-api.herokuapp.com/all";
 const countryurl = "https://coronavirus-19-api.herokuapp.com/countries";
 
 let dashes = "➖➖➖➖➖➖➖";
-let mainMenu = '\n*1*. World report \n*2*. My country report \n*3*. Country wise report \n*4*. Top 5 countries report \n*5*. About and Help\n*6*. Content of the day';
+let mainMenu = '\n*1*. World report \n*2*. My country report \n*3*. Country wise report \n*4*. Top 5 countries report \n*5*. About and Help\n*6*. India state wise\n*7*. Content of the day';
 let errorMessage = '🤷‍Sorry!! I did\'n\'t understand';
 let chooseOptions = '\n\nPlease choose from the following options.\n';
 let helloMsg = '🙏Hello there! Currently the world has ';
@@ -190,9 +190,35 @@ app.post('/whatsapp', (req, res) => {
   		res.writeHead(200, {'Content-Type': 'text/xml'});
  		res.end(twiml.toString());
  	}
-  /*else if(req.body.Body == 6){
+  else if(req.body.Body == 6){
     req.session.current = 1;
-    axios.get('https://cdn.jsdelivr.net/gh/covid-19-tracker/india-state-wise@latest/data.json')
+    message = '🇮🇳'+'Confirmed Cases\n';
+    axios.get('https://api.covid19india.org/state_district_wise.json')
+  .then(response => {
+    /*let message1='';
+    Object.keys(response.data).forEach(function(key) {
+    var value = response.data[key];
+    message1 = message1+'🇮🇳'+key+'\n'+'Cases:'+(parseInt(value.total_indian)+parseInt(value.total_foreign))+'\n'+'Deaths:'+value.death+'\n';
+    */
+    var data = Object.keys(response.data);
+    for (state in response.data) {
+      var stateData = response.data[state];
+      var districtData = stateData['districtData'];
+      var confirmed = 0;
+      for(x in districtData){
+        confirmed = confirmed + districtData[x]['confirmed'];
+      }
+      message = message+state+':'+confirmed+'\n';
+    }
+    twiml.message(message+toMainMenu);
+
+      res.writeHead(200, {'Content-Type': 'text/xml'});
+    res.end(twiml.toString());
+
+});
+
+
+   /* axios.get('https://cdn.jsdelivr.net/gh/covid-19-tracker/india-state-wise@latest/data.json')
   .then(response => {
     let message1='';
     Object.keys(response.data).forEach(function(key) {
@@ -205,10 +231,10 @@ app.post('/whatsapp', (req, res) => {
       res.writeHead(200, {'Content-Type': 'text/xml'});
     res.end(twiml.toString());
 
-  });
+  });*/
     
-  }*/
-  else if(req.body.Body == 6){
+  }
+  else if(req.body.Body == 7){
     req.session.current = 1;
     twiml.message("https://www.youtube.com/watch?v=54XLXg4fYsc \n" + mainMenu);
 
